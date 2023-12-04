@@ -12,5 +12,4 @@ void configureInjection(String env) {
 abstract class Env {
   static const dev = 'dev';
   static const demo = 'demo';
-  static const test = 'test';
 }

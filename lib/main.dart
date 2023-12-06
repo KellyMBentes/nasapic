@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:nasapic/core/usecases/usecase.dart';
-import 'package:nasapic/features/picture_of_the_day/domain/use_cases/get_all_pictures.dart';
+import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_remote_data_source.dart';
 import 'package:nasapic/injection.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  configureInjection(Env.demo);
+  configureInjection(Env.dev);
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -23,27 +21,47 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: FutureBuilder(
-          future: getIt<GetAllPictures>().call(const NoParams()),
+          future: getIt<PictureOfTheDayRemoteDataSourceImpl>().getAllPictures(2, 10),
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              return snapshot.data!.fold(
-                (f) => const Text('Error'),
-                (pictures) => ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: pictures.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Column(
-                      children: [
-                        Text(pictures[index].title),
-                        Image.network(
-                          pictures[index].imageUrl,
-                        ),
-                      ],
-                    );
-                  },
-                ),
+              final pictures = snapshot.data;
+              if (pictures == null) return Container();
+
+              return ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: pictures.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Column(
+                    children: [
+                      Text(pictures[index].title),
+                      Image.network(
+                        pictures[index].mediaType == 'video' ? pictures[index].thumbnailUrl! : pictures[index].url,
+                      ),
+                    ],
+                  );
+                },
               );
+
+              // return snapshot.data!.fold(
+              // (f) => const Text('Error'),
+              // (pictures) => ListView.builder(
+              //   physics: const BouncingScrollPhysics(),
+              //   shrinkWrap: true,
+              //   itemCount: pictures.length,
+              //   itemBuilder: (BuildContext context, int index) {
+
+              // return Column(
+              //   children: [
+              //     Text(pictures[index].title),
+              //     Image.network(
+              //       pictures[index].imageUrl,
+              //     ),
+              //   ],
+              // );
+              //     },
+              //   ),
+              // );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),

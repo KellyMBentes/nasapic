@@ -2,13 +2,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:nasapic/core/data/hive_database.dart';
 import 'package:nasapic/injection.config.dart';
 
 final GetIt getIt = GetIt.instance;
 
 @injectableInit
-void configureInjection(String env) {
-  getIt.init(environment: env);
+Future<void> configureInjection(String env) async {
+  await getIt.init(environment: env);
 }
 
 abstract class Env {
@@ -42,5 +43,13 @@ abstract class DioModule {
     );
 
     return dio;
+  }
+
+  @lazySingleton
+  @preResolve
+  Future<IHiveDatabase> hiveDatabase() async {
+    IHiveDatabase database = HiveDatabaseImpl();
+    await database.init();
+    return database;
   }
 }

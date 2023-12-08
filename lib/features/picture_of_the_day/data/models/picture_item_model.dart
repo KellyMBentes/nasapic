@@ -9,17 +9,22 @@ class PictureItemModel with _$PictureItemModel {
   const PictureItemModel._();
 
   const factory PictureItemModel({
-    required String? copyright,
     @JsonKey(name: 'media_type') required String mediaType,
     required String date,
     required String explanation,
     required String title,
     required String url,
     @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
+    String? copyright,
   }) = _PictureItemModel;
 
   PictureItem toEntity() {
-    return PictureItem(date: DateTime.parse(date), explanation: explanation, title: title, imageUrl: (mediaType == 'video') ? thumbnailUrl! : url);
+    return PictureItem(
+      date: DateTime.parse(date),
+      explanation: explanation,
+      title: title,
+      imageUrl: (mediaType == 'video') ? thumbnailUrl! : url,
+    );
   }
 
   factory PictureItemModel.fromJson(Map<String, Object?> json) => _$PictureItemModelFromJson(json);

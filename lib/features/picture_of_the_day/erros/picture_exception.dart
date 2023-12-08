@@ -5,3 +5,5 @@ class CacheException extends PictureException {}
 class ServerException extends PictureException {}
 
 class NoInternetConnectionException extends PictureException {}
+
+class NoValuesFoundedException extends PictureException {}

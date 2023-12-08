@@ -9,13 +9,13 @@ import 'package:nasapic/features/picture_of_the_day/erros/picture_failure.dart';
 part 'search_picture_by_date.freezed.dart';
 
 @injectable
-class SearchPicturesByDate implements UseCase<PictureFailure, List<PictureItem>, Params> {
+class SearchPicturesByDate implements UseCase<PictureFailure, PictureItem, Params> {
   final IPictureOfTheDayRepository repository;
 
   SearchPicturesByDate(this.repository);
 
   @override
-  Future<Either<PictureFailure, List<PictureItem>>> call(Params params) async {
+  Future<Either<PictureFailure, PictureItem>> call(Params params) async {
     return await repository.searchPictureByDate(params.date);
   }
 }

@@ -20,7 +20,6 @@ PictureItemModel _$PictureItemModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$PictureItemModel {
-  String? get copyright => throw _privateConstructorUsedError;
   @JsonKey(name: 'media_type')
   String get mediaType => throw _privateConstructorUsedError;
   String get date => throw _privateConstructorUsedError;
@@ -29,6 +28,7 @@ mixin _$PictureItemModel {
   String get url => throw _privateConstructorUsedError;
   @JsonKey(name: 'thumbnail_url')
   String? get thumbnailUrl => throw _privateConstructorUsedError;
+  String? get copyright => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,13 +43,13 @@ abstract class $PictureItemModelCopyWith<$Res> {
       _$PictureItemModelCopyWithImpl<$Res, PictureItemModel>;
   @useResult
   $Res call(
-      {String? copyright,
-      @JsonKey(name: 'media_type') String mediaType,
+      {@JsonKey(name: 'media_type') String mediaType,
       String date,
       String explanation,
       String title,
       String url,
-      @JsonKey(name: 'thumbnail_url') String? thumbnailUrl});
+      @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
+      String? copyright});
 }
 
 /// @nodoc
@@ -65,19 +65,15 @@ class _$PictureItemModelCopyWithImpl<$Res, $Val extends PictureItemModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? copyright = freezed,
     Object? mediaType = null,
     Object? date = null,
     Object? explanation = null,
     Object? title = null,
     Object? url = null,
     Object? thumbnailUrl = freezed,
+    Object? copyright = freezed,
   }) {
     return _then(_value.copyWith(
-      copyright: freezed == copyright
-          ? _value.copyright
-          : copyright // ignore: cast_nullable_to_non_nullable
-              as String?,
       mediaType: null == mediaType
           ? _value.mediaType
           : mediaType // ignore: cast_nullable_to_non_nullable
@@ -101,6 +97,10 @@ class _$PictureItemModelCopyWithImpl<$Res, $Val extends PictureItemModel>
       thumbnailUrl: freezed == thumbnailUrl
           ? _value.thumbnailUrl
           : thumbnailUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      copyright: freezed == copyright
+          ? _value.copyright
+          : copyright // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -115,13 +115,13 @@ abstract class _$$PictureItemModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? copyright,
-      @JsonKey(name: 'media_type') String mediaType,
+      {@JsonKey(name: 'media_type') String mediaType,
       String date,
       String explanation,
       String title,
       String url,
-      @JsonKey(name: 'thumbnail_url') String? thumbnailUrl});
+      @JsonKey(name: 'thumbnail_url') String? thumbnailUrl,
+      String? copyright});
 }
 
 /// @nodoc
@@ -135,19 +135,15 @@ class __$$PictureItemModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? copyright = freezed,
     Object? mediaType = null,
     Object? date = null,
     Object? explanation = null,
     Object? title = null,
     Object? url = null,
     Object? thumbnailUrl = freezed,
+    Object? copyright = freezed,
   }) {
     return _then(_$PictureItemModelImpl(
-      copyright: freezed == copyright
-          ? _value.copyright
-          : copyright // ignore: cast_nullable_to_non_nullable
-              as String?,
       mediaType: null == mediaType
           ? _value.mediaType
           : mediaType // ignore: cast_nullable_to_non_nullable
@@ -172,6 +168,10 @@ class __$$PictureItemModelImplCopyWithImpl<$Res>
           ? _value.thumbnailUrl
           : thumbnailUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      copyright: freezed == copyright
+          ? _value.copyright
+          : copyright // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -181,20 +181,18 @@ class __$$PictureItemModelImplCopyWithImpl<$Res>
 class _$PictureItemModelImpl extends _PictureItemModel
     with DiagnosticableTreeMixin {
   const _$PictureItemModelImpl(
-      {required this.copyright,
-      @JsonKey(name: 'media_type') required this.mediaType,
+      {@JsonKey(name: 'media_type') required this.mediaType,
       required this.date,
       required this.explanation,
       required this.title,
       required this.url,
-      @JsonKey(name: 'thumbnail_url') this.thumbnailUrl})
+      @JsonKey(name: 'thumbnail_url') this.thumbnailUrl,
+      this.copyright})
       : super._();
 
   factory _$PictureItemModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$PictureItemModelImplFromJson(json);
 
-  @override
-  final String? copyright;
   @override
   @JsonKey(name: 'media_type')
   final String mediaType;
@@ -209,10 +207,12 @@ class _$PictureItemModelImpl extends _PictureItemModel
   @override
   @JsonKey(name: 'thumbnail_url')
   final String? thumbnailUrl;
+  @override
+  final String? copyright;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PictureItemModel(copyright: $copyright, mediaType: $mediaType, date: $date, explanation: $explanation, title: $title, url: $url, thumbnailUrl: $thumbnailUrl)';
+    return 'PictureItemModel(mediaType: $mediaType, date: $date, explanation: $explanation, title: $title, url: $url, thumbnailUrl: $thumbnailUrl, copyright: $copyright)';
   }
 
   @override
@@ -220,13 +220,13 @@ class _$PictureItemModelImpl extends _PictureItemModel
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PictureItemModel'))
-      ..add(DiagnosticsProperty('copyright', copyright))
       ..add(DiagnosticsProperty('mediaType', mediaType))
       ..add(DiagnosticsProperty('date', date))
       ..add(DiagnosticsProperty('explanation', explanation))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('url', url))
-      ..add(DiagnosticsProperty('thumbnailUrl', thumbnailUrl));
+      ..add(DiagnosticsProperty('thumbnailUrl', thumbnailUrl))
+      ..add(DiagnosticsProperty('copyright', copyright));
   }
 
   @override
@@ -234,8 +234,6 @@ class _$PictureItemModelImpl extends _PictureItemModel
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PictureItemModelImpl &&
-            (identical(other.copyright, copyright) ||
-                other.copyright == copyright) &&
             (identical(other.mediaType, mediaType) ||
                 other.mediaType == mediaType) &&
             (identical(other.date, date) || other.date == date) &&
@@ -244,13 +242,15 @@ class _$PictureItemModelImpl extends _PictureItemModel
             (identical(other.title, title) || other.title == title) &&
             (identical(other.url, url) || other.url == url) &&
             (identical(other.thumbnailUrl, thumbnailUrl) ||
-                other.thumbnailUrl == thumbnailUrl));
+                other.thumbnailUrl == thumbnailUrl) &&
+            (identical(other.copyright, copyright) ||
+                other.copyright == copyright));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, copyright, mediaType, date,
-      explanation, title, url, thumbnailUrl);
+  int get hashCode => Object.hash(runtimeType, mediaType, date, explanation,
+      title, url, thumbnailUrl, copyright);
 
   @JsonKey(ignore: true)
   @override
@@ -269,21 +269,18 @@ class _$PictureItemModelImpl extends _PictureItemModel
 
 abstract class _PictureItemModel extends PictureItemModel {
   const factory _PictureItemModel(
-          {required final String? copyright,
-          @JsonKey(name: 'media_type') required final String mediaType,
-          required final String date,
-          required final String explanation,
-          required final String title,
-          required final String url,
-          @JsonKey(name: 'thumbnail_url') final String? thumbnailUrl}) =
-      _$PictureItemModelImpl;
+      {@JsonKey(name: 'media_type') required final String mediaType,
+      required final String date,
+      required final String explanation,
+      required final String title,
+      required final String url,
+      @JsonKey(name: 'thumbnail_url') final String? thumbnailUrl,
+      final String? copyright}) = _$PictureItemModelImpl;
   const _PictureItemModel._() : super._();
 
   factory _PictureItemModel.fromJson(Map<String, dynamic> json) =
       _$PictureItemModelImpl.fromJson;
 
-  @override
-  String? get copyright;
   @override
   @JsonKey(name: 'media_type')
   String get mediaType;
@@ -298,6 +295,8 @@ abstract class _PictureItemModel extends PictureItemModel {
   @override
   @JsonKey(name: 'thumbnail_url')
   String? get thumbnailUrl;
+  @override
+  String? get copyright;
   @override
   @JsonKey(ignore: true)
   _$$PictureItemModelImplCopyWith<_$PictureItemModelImpl> get copyWith =>

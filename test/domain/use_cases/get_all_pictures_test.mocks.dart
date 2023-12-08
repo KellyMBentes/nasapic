@@ -104,31 +104,30 @@ class MockIPictureOfTheDayRepository extends _i1.Mock
 
   @override
   _i4.Future<
-      _i2
-      .Either<_i5.PictureFailure, List<_i6.PictureItem>>> searchPictureByDate(
+      _i2.Either<_i5.PictureFailure, _i6.PictureItem>> searchPictureByDate(
           DateTime? date) =>
       (super.noSuchMethod(
         Invocation.method(
           #searchPictureByDate,
           [date],
         ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>.value(
-            _FakeEither_0<_i5.PictureFailure, List<_i6.PictureItem>>(
+        returnValue:
+            _i4.Future<_i2.Either<_i5.PictureFailure, _i6.PictureItem>>.value(
+                _FakeEither_0<_i5.PictureFailure, _i6.PictureItem>(
           this,
           Invocation.method(
             #searchPictureByDate,
             [date],
           ),
         )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>.value(
-            _FakeEither_0<_i5.PictureFailure, List<_i6.PictureItem>>(
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.PictureFailure, _i6.PictureItem>>.value(
+                _FakeEither_0<_i5.PictureFailure, _i6.PictureItem>(
           this,
           Invocation.method(
             #searchPictureByDate,
             [date],
           ),
         )),
-      ) as _i4.Future<_i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>);
+      ) as _i4.Future<_i2.Either<_i5.PictureFailure, _i6.PictureItem>>);
 }

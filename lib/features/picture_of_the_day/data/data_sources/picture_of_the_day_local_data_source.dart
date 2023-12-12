@@ -1,10 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:nasapic/core/data/hive_database.dart';
+import 'package:nasapic/core/error/cache_exception.dart';
 import 'package:nasapic/core/utils/date_helpers.dart';
 import 'package:nasapic/features/picture_of_the_day/data/models/hive_box_type.dart';
 import 'package:nasapic/features/picture_of_the_day/data/models/picture_item_model.dart';
-import 'package:nasapic/features/picture_of_the_day/erros/picture_exception.dart';
 import 'package:nasapic/injection.dart';
 
 abstract class IPictureOfTheDayLocalDataSource {
@@ -22,32 +22,49 @@ class PictureOfTheDayLocalDataSource extends IPictureOfTheDayLocalDataSource {
 
   @override
   Future<List<PictureItemModel>> getAllPictures() async {
-    final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-    return pictureItemBox.values.map<PictureItemModel>((p) => PictureItemModel.fromJson(p)).toList();
+    try {
+      final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
+      return pictureItemBox.values.map<PictureItemModel>((p) => PictureItemModel.fromJson(p)).toList();
+    } on HiveError catch (e) {
+      throw DatabaseException(message: e.message);
+    }
   }
 
   @override
   Future<void> savePictures(List<PictureItemModel> pictures) async {
-    final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-    final Map<String, dynamic> picturesMap = {};
-    for (PictureItemModel picture in pictures) {
-      picturesMap.addAll({picture.date: picture.toJson()});
+    try {
+      final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
+      final List<Map<String, dynamic>> picturesListMap = [];
+      for (PictureItemModel picture in pictures) {
+        picturesListMap.add({picture.date: picture.toJson()});
+      }
+      print(picturesListMap);
+      await pictureItemBox.addAll(picturesListMap);
+    } on HiveError catch (e) {
+      throw DatabaseException(message: e.message);
     }
-    await pictureItemBox.addAll(pictures.map((picture) => picture.toJson()).toList());
   }
 
   @override
   Future<PictureItemModel> searchPictureByDate(DateTime date) async {
-    final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-    final Map<String, dynamic>? pictureItemValue = pictureItemBox.get(date.toStringRemote());
+    try {
+      final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
+      final Map<String, dynamic>? pictureItemValue = pictureItemBox.get(date.toStringRemote());
 
-    if (pictureItemValue == null) throw NoValuesFoundedException();
+      if (pictureItemValue == null) throw NoValuesFoundedOnCacheException();
 
-    return PictureItemModel.fromJson(pictureItemValue);
+      return PictureItemModel.fromJson(pictureItemValue);
+    } on HiveError catch (e) {
+      throw DatabaseException(message: e.message);
+    }
   }
 
   @override
   Future<void> cleanCache() {
-    return _database.cleanAllBoxes();
+    try {
+      return _database.cleanAllBoxes();
+    } on HiveError catch (e) {
+      throw DatabaseException(message: e.message);
+    }
   }
 }

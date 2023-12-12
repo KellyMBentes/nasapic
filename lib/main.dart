@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nasapic/core/utils/date_helpers.dart';
+import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_local_data_source.dart';
 import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_remote_data_source.dart';
 import 'package:nasapic/features/picture_of_the_day/data/models/picture_item_model.dart';
 import 'package:nasapic/injection.dart';
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    IPictureOfTheDayLocalDataSource localDataSource = getIt<IPictureOfTheDayLocalDataSource>();
     IPictureOfTheDayRemoteDataSource remoteDataSource = getIt<IPictureOfTheDayRemoteDataSource>();
 
     final List<PictureItemModel> pictures = [

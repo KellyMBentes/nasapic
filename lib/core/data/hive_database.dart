@@ -26,8 +26,9 @@ class HiveDatabaseImpl extends IHiveDatabase {
 
   @override
   Future<void> cleanAllBoxes() async {
-    for (HiveBoxType boxType in HiveBoxType.values) {
-      await Hive.box(boxType.name).clear();
+    for (HiveBoxType type in HiveBoxType.values) {
+      final box = await getBox(type);
+      await box.clear();
     }
   }
 }

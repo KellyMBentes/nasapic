@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     IPictureOfTheDayLocalDataSource localDataSource = getIt<IPictureOfTheDayLocalDataSource>();
     IPictureOfTheDayRemoteDataSource remoteDataSource = getIt<IPictureOfTheDayRemoteDataSource>();
 
-    final List<PictureItemModel> pictures = [
+    final List<PictureItemModel> picturesList = [
       PictureItemModel(
         date: DateTime(2020, 11, 15).toStringRemote(),
         explanation:
@@ -62,14 +62,14 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: FutureBuilder(
-          future: remoteDataSource.getAllPictures(1, 10),
-          // future: Future(() async {
-          //   final result = await localDataSource.getAllPictures();
-          //   if (result.isEmpty) {
-          //     localDataSource.savePictures(pictures);
-          //   }
-          //   return await localDataSource.getAllPictures();
-          // }),
+          // future: remoteDataSource.getAllPictures(1, 10),
+          future: Future(() async {
+            final result = await localDataSource.getAllPictures();
+            if (result.isEmpty) {
+              localDataSource.savePictures(picturesList);
+            }
+            return await localDataSource.getAllPictures();
+          }),
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               final pictures = snapshot.data;

@@ -45,7 +45,7 @@ void main() {
       "should call searchPicturesByDate from pictureOfTheDayRepo",
       () async {
         // arrange
-        when(mockPictureOfTheDayRepository.searchPictureByDate(mockedDate)).thenAnswer((_) async => Right(pictures));
+        when(mockPictureOfTheDayRepository.searchPictureByDate(mockedDate)).thenAnswer((_) async => Right(pictures.first));
         // act
         await useCase(mockedParams);
         // assert
@@ -56,11 +56,11 @@ void main() {
       "should get picture list when repository returns success",
       () async {
         // arrange
-        when(mockPictureOfTheDayRepository.searchPictureByDate(mockedDate)).thenAnswer((_) async => Right(pictures));
+        when(mockPictureOfTheDayRepository.searchPictureByDate(mockedDate)).thenAnswer((_) async => Right(pictures.first));
         // act
         final result = await useCase(mockedParams);
         // assert
-        expect(result, Right(pictures));
+        expect(result, Right(pictures.first));
       },
     );
 

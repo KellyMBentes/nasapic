@@ -44,8 +44,13 @@ class DemoPictureOfTheDayRepository implements IPictureOfTheDayRepository {
   }
 
   @override
-  Future<Either<PictureFailure, List<PictureItem>>> searchPictureByDate(DateTime date) async {
-    return Right(pictures.where((p) => p.date == date).toList());
+  Future<Either<PictureFailure, PictureItem>> searchPictureByDate(DateTime date) async {
+    final results = pictures.where((p) => p.date == date);
+    if (results.isNotEmpty) {
+      return Right(results.first);
+    } else {
+      return Left(NoValuesFoundedFailure());
+    }
   }
 
   @override

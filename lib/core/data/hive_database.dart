@@ -20,7 +20,7 @@ class HiveDatabaseImpl extends IHiveDatabase {
       case HiveBoxType.imageBox:
         return Hive.isBoxOpen(type.name) ? Hive.box<Uint8List>(type.name) : await Hive.openBox<Uint8List>(type.name);
       case HiveBoxType.pictureItemBox:
-        return Hive.isBoxOpen(type.name) ? Hive.box<Map<String, dynamic>>(type.name) : await Hive.openBox<Map<String, dynamic>>(type.name);
+        return Hive.isBoxOpen(type.name) ? Hive.box(type.name) : await Hive.openBox(type.name);
     }
   }
 

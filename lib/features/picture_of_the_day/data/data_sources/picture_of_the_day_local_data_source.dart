@@ -15,17 +15,28 @@ abstract class IPictureOfTheDayLocalDataSource {
 }
 
 @Injectable(as: IPictureOfTheDayLocalDataSource, env: [Env.dev])
-class PictureOfTheDayLocalDataSource extends IPictureOfTheDayLocalDataSource {
+class PictureOfTheDayLocalDataSourceImpl extends IPictureOfTheDayLocalDataSource {
   final IHiveDatabase _database;
 
-  PictureOfTheDayLocalDataSource(this._database);
+  PictureOfTheDayLocalDataSourceImpl(this._database);
 
   @override
   Future<List<PictureItemModel>> getAllPictures() async {
     try {
       final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-      final values = pictureItemBox.values.map<PictureItemModel>((p) => PictureItemModel.fromJson(p)).toList();
-      return values;
+      final boxValues = pictureItemBox.values;
+      final List<PictureItemModel> picturesResult = [];
+      for (int i = 0; i < boxValues.length; i++) {
+        final currentPictureMap = boxValues.elementAt(i);
+
+        Map<String, dynamic> result = {};
+        for (var entry in currentPictureMap.entries) {
+          result.addAll({entry.key.toString(): entry.value});
+        }
+
+        picturesResult.add(PictureItemModel.fromJson(result));
+      }
+      return picturesResult;
     } on HiveError catch (e) {
       throw DatabaseException(message: e.message);
     }

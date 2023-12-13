@@ -15,10 +15,10 @@ abstract class IPictureOfTheDayLocalDataSource {
 }
 
 @Injectable(as: IPictureOfTheDayLocalDataSource, env: [Env.dev])
-class PictureOfTheDayLocalDataSource extends IPictureOfTheDayLocalDataSource {
+class PictureOfTheDayLocalDataSourceImpl extends IPictureOfTheDayLocalDataSource {
   final IHiveDatabase _database;
 
-  PictureOfTheDayLocalDataSource(this._database);
+  PictureOfTheDayLocalDataSourceImpl(this._database);
 
   @override
   Future<List<PictureItemModel>> getAllPictures() async {

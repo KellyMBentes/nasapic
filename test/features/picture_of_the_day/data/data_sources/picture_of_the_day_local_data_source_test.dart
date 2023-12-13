@@ -20,7 +20,7 @@ void main() {
 
   setUp(() {
     mockDatabase = MockIHiveDatabase();
-    localDataSource = PictureOfTheDayLocalDataSource(mockDatabase);
+    localDataSource = PictureOfTheDayLocalDataSourceImpl(mockDatabase);
     mockedBox = MockBox();
   });
 

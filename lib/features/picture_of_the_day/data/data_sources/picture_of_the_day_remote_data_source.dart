@@ -35,7 +35,7 @@ class PictureOfTheDayRemoteDataSourceImpl extends IPictureOfTheDayRemoteDataSour
         throw ServerException(code: response.statusCode, message: RemoteResponseError.fromJson(response.data as Map<String, dynamic>).message);
       }
     } on DioException catch (e) {
-      if (e.type == DioExceptionType.connectionError) {
+      if (e.type == DioExceptionType.connectionError || e.type == DioExceptionType.connectionTimeout) {
         throw NoInternetConnectionException();
       } else {
         throw ServerException(code: e.response!.statusCode!, message: RemoteResponseError.fromJson(e.response?.data as Map<String, dynamic>).message);

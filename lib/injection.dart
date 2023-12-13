@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:nasapic/core/data/hive_database.dart';
 import 'package:nasapic/injection.config.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -18,7 +19,7 @@ abstract class Env {
 }
 
 @module
-abstract class DioModule {
+abstract class ExternalModule {
   @Named("BaseUrl")
   String get baseUrl => 'https://api.nasa.gov/planetary/apod';
 
@@ -51,5 +52,11 @@ abstract class DioModule {
     IHiveDatabase database = HiveDatabaseImpl();
     await database.init();
     return database;
+  }
+
+  @lazySingleton
+  @preResolve
+  Future<Connectivity> connectivity() async {
+    return Connectivity();
   }
 }

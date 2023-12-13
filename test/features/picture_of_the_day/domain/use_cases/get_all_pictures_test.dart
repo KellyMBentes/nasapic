@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
-import 'package:nasapic/core/usecases/usecase.dart';
 import 'package:nasapic/features/picture_of_the_day/domain/entities/picture_item.dart';
 import 'package:nasapic/features/picture_of_the_day/domain/repositories/i_picture_of_the_day_repository.dart';
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/get_all_pictures.dart';
@@ -36,25 +35,27 @@ void main() {
     ),
   ];
 
+  int testPage = 1;
+
   group('getAllPictures useCase', () {
     test(
       "should call getAllPictures from pictureOfTheDayRepo",
       () async {
         // arrange
-        when(mockPictureOfTheDayRepository.getAllPictures()).thenAnswer((_) async => Right(pictures));
+        when(mockPictureOfTheDayRepository.getAllPictures(testPage, GetAllPictures.count)).thenAnswer((_) async => Right(pictures));
         // act
-        await useCase(const NoParams());
+        await useCase(Params(page: testPage));
         // assert
-        verify(mockPictureOfTheDayRepository.getAllPictures()).called(1);
+        verify(mockPictureOfTheDayRepository.getAllPictures(testPage, GetAllPictures.count)).called(1);
       },
     );
     test(
       "should get picture list when repository returns success",
       () async {
         // arrange
-        when(mockPictureOfTheDayRepository.getAllPictures()).thenAnswer((_) async => Right(pictures));
+        when(mockPictureOfTheDayRepository.getAllPictures(testPage, GetAllPictures.count)).thenAnswer((_) async => Right(pictures));
         // act
-        final result = await useCase(const NoParams());
+        final result = await useCase(Params(page: testPage));
         // assert
         expect(result, Right(pictures));
       },

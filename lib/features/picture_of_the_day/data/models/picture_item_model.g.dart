@@ -6,7 +6,9 @@ part of 'picture_item_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$PictureItemModelImpl _$$PictureItemModelImplFromJson(Map<String, dynamic> json) => _$PictureItemModelImpl(
+_$PictureItemModelImpl _$$PictureItemModelImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PictureItemModelImpl(
       mediaType: json['media_type'] as String,
       date: json['date'] as String,
       explanation: json['explanation'] as String,
@@ -16,7 +18,9 @@ _$PictureItemModelImpl _$$PictureItemModelImplFromJson(Map<String, dynamic> json
       copyright: json['copyright'] as String?,
     );
 
-Map<String, dynamic> _$$PictureItemModelImplToJson(_$PictureItemModelImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$$PictureItemModelImplToJson(
+        _$PictureItemModelImpl instance) =>
+    <String, dynamic>{
       'media_type': instance.mediaType,
       'date': instance.date,
       'explanation': instance.explanation,

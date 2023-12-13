@@ -24,8 +24,19 @@ class PictureOfTheDayLocalDataSource extends IPictureOfTheDayLocalDataSource {
   Future<List<PictureItemModel>> getAllPictures() async {
     try {
       final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-      final values = pictureItemBox.values.map<PictureItemModel>((p) => PictureItemModel.fromJson(p)).toList();
-      return values;
+      final boxValues = pictureItemBox.values.cast<Map<String, dynamic>>();
+      final List<PictureItemModel> picturesResult = [];
+      for (int i = 0; i < boxValues.length; i++) {
+        Map<dynamic, dynamic> currentPictureMap = pictureItemBox.getAt(i);
+
+        Map<String, dynamic> result = {};
+        for (var entry in currentPictureMap.entries) {
+          result.addAll({entry.key.toString(): entry.value});
+        }
+
+        picturesResult.add(PictureItemModel.fromJson(result));
+      }
+      return picturesResult;
     } on HiveError catch (e) {
       throw DatabaseException(message: e.message);
     }

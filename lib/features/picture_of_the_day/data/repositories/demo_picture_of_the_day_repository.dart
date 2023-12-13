@@ -52,12 +52,7 @@ class DemoPictureOfTheDayRepository implements IPictureOfTheDayRepository {
     if (results.isNotEmpty) {
       return Right(results.first);
     } else {
-      return Left(NoValuesFoundedFailure());
+      return Left(NoValuesFoundeOnCachedFailure());
     }
-  }
-
-  @override
-  Future<Either<PictureFailure, List<PictureItem>>> searchPictureByTitle(String title) async {
-    return Right(pictures.where((p) => p.title.contains(title)).toList());
   }
 }

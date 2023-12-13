@@ -138,24 +138,6 @@ void main() {
         }
       },
     );
-
-    test(
-      "should throw NoInternetConnectionException on connection error in getAll",
-      () async {
-        // arrange
-        when(mockedDio.get(
-          url,
-          queryParameters: {'start_date': startDate, 'end_date': endDate},
-        )).thenThrow(DioException.connectionError(requestOptions: mockedRequestOptions, reason: "No internet"));
-        // act
-        try {
-          await remoteDataSource.getAllPictures(page, count);
-        } catch (e) {
-          // assert
-          expect(e, isA<NoInternetConnectionException>());
-        }
-      },
-    );
   });
 
   group('getAllPictures method', () {
@@ -242,24 +224,6 @@ void main() {
         } catch (e) {
           // assert
           expect(e, mockedException);
-        }
-      },
-    );
-
-    test(
-      "should throw NoInternetConnectionException on connection error in search",
-      () async {
-        // arrange
-        when(mockedDio.get(
-          url,
-          queryParameters: {'date': date.toStringRemote()},
-        )).thenThrow(DioException.connectionError(requestOptions: mockedRequestOptions, reason: "No internet"));
-        // act
-        try {
-          await remoteDataSource.searchPictureByDate(date);
-        } catch (e) {
-          // assert
-          expect(e, isA<NoInternetConnectionException>());
         }
       },
     );

@@ -12,5 +12,3 @@ class ServerException extends RemoteExcepetion with _$ServerException {
     required String message,
   }) = _ServerException;
 }
-
-class NoInternetConnectionException extends RemoteExcepetion {}

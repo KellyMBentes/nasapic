@@ -38,7 +38,7 @@ void main() {
 
   DateTime mockedDate = DateTime(2023);
   Params mockedParams = Params(date: mockedDate);
-  PictureFailure mockedFailure = ServerUnavaiableFailure();
+  PictureFailure mockedFailure = const ServerFailure(message: 'Error', code: null);
 
   group('searchPicturesByDate useCase', () {
     test(

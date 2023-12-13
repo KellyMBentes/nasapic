@@ -43,18 +43,20 @@ class _FakeEither_0<L, R> extends _i1.SmartFake implements _i2.Either<L, R> {
 class MockIPictureOfTheDayRepository extends _i1.Mock
     implements _i3.IPictureOfTheDayRepository {
   @override
+  int get countByPage => (super.noSuchMethod(
+        Invocation.getter(#countByPage),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
   _i4.Future<
       _i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>> getAllPictures(
-    int? page,
-    int? count,
-  ) =>
+          int? page) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAllPictures,
-          [
-            page,
-            count,
-          ],
+          [page],
         ),
         returnValue: _i4.Future<
                 _i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>.value(
@@ -62,10 +64,7 @@ class MockIPictureOfTheDayRepository extends _i1.Mock
           this,
           Invocation.method(
             #getAllPictures,
-            [
-              page,
-              count,
-            ],
+            [page],
           ),
         )),
         returnValueForMissingStub: _i4.Future<
@@ -74,10 +73,7 @@ class MockIPictureOfTheDayRepository extends _i1.Mock
           this,
           Invocation.method(
             #getAllPictures,
-            [
-              page,
-              count,
-            ],
+            [page],
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>);

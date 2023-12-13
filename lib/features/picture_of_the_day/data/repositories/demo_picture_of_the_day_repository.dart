@@ -39,7 +39,10 @@ class DemoPictureOfTheDayRepository implements IPictureOfTheDayRepository {
   ];
 
   @override
-  Future<Either<PictureFailure, List<PictureItem>>> getAllPictures(int page, int count) async {
+  int get countByPage => 20;
+
+  @override
+  Future<Either<PictureFailure, List<PictureItem>>> getAllPictures(int page) async {
     return Right(pictures);
   }
 

@@ -42,18 +42,18 @@ void main() {
       "should call getAllPictures from pictureOfTheDayRepo",
       () async {
         // arrange
-        when(mockPictureOfTheDayRepository.getAllPictures(testPage, GetAllPictures.count)).thenAnswer((_) async => Right(pictures));
+        when(mockPictureOfTheDayRepository.getAllPictures(testPage)).thenAnswer((_) async => Right(pictures));
         // act
         await useCase(Params(page: testPage));
         // assert
-        verify(mockPictureOfTheDayRepository.getAllPictures(testPage, GetAllPictures.count)).called(1);
+        verify(mockPictureOfTheDayRepository.getAllPictures(testPage)).called(1);
       },
     );
     test(
       "should get picture list when repository returns success",
       () async {
         // arrange
-        when(mockPictureOfTheDayRepository.getAllPictures(testPage, GetAllPictures.count)).thenAnswer((_) async => Right(pictures));
+        when(mockPictureOfTheDayRepository.getAllPictures(testPage)).thenAnswer((_) async => Right(pictures));
         // act
         final result = await useCase(Params(page: testPage));
         // assert

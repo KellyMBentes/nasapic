@@ -10,14 +10,13 @@ part 'get_all_pictures.freezed.dart';
 
 @injectable
 class GetAllPictures implements UseCase<PictureFailure, List<PictureItem>, Params> {
-  static const int count = 10;
   final IPictureOfTheDayRepository repository;
 
   GetAllPictures(this.repository);
 
   @override
   Future<Either<PictureFailure, List<PictureItem>>> call(Params params) async {
-    return await repository.getAllPictures(params.page, count);
+    return await repository.getAllPictures(params.page);
   }
 }
 

@@ -24,10 +24,10 @@ class PictureOfTheDayLocalDataSourceImpl extends IPictureOfTheDayLocalDataSource
   Future<List<PictureItemModel>> getAllPictures() async {
     try {
       final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-      final boxValues = pictureItemBox.values.cast<Map<String, dynamic>>();
+      final boxValues = pictureItemBox.values;
       final List<PictureItemModel> picturesResult = [];
       for (int i = 0; i < boxValues.length; i++) {
-        Map<dynamic, dynamic> currentPictureMap = pictureItemBox.getAt(i);
+        final currentPictureMap = boxValues.elementAt(i);
 
         Map<String, dynamic> result = {};
         for (var entry in currentPictureMap.entries) {

@@ -30,7 +30,9 @@ import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_pict
     as _i8;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_picture_by_title.dart'
     as _i9;
-import 'package:nasapic/injection.dart' as _i15;
+import 'package:nasapic/features/picture_of_the_day/presentation/bloc/picture_of_the_day_bloc.dart'
+    as _i15;
+import 'package:nasapic/injection.dart' as _i16;
 
 const String _dev = 'dev';
 const String _demo = 'demo';
@@ -96,8 +98,13 @@ extension GetItInjectableX on _i1.GetIt {
       ),
       registerFor: {_dev},
     );
+    gh.factory<_i15.PictureOfTheDayBloc>(() => _i15.PictureOfTheDayBloc(
+          gh<_i11.GetAllPictures>(),
+          gh<_i8.SearchPicturesByDate>(),
+          gh<_i9.SearchPicturesByTitle>(),
+        ));
     return this;
   }
 }
 
-class _$ExternalModule extends _i15.ExternalModule {}
+class _$ExternalModule extends _i16.ExternalModule {}

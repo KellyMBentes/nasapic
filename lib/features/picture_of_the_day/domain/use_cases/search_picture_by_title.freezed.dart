@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Params {
   String get title => throw _privateConstructorUsedError;
+  List<PictureItem> get pictures => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ParamsCopyWith<Params> get copyWith => throw _privateConstructorUsedError;
@@ -27,7 +28,7 @@ abstract class $ParamsCopyWith<$Res> {
   factory $ParamsCopyWith(Params value, $Res Function(Params) then) =
       _$ParamsCopyWithImpl<$Res, Params>;
   @useResult
-  $Res call({String title});
+  $Res call({String title, List<PictureItem> pictures});
 }
 
 /// @nodoc
@@ -44,12 +45,17 @@ class _$ParamsCopyWithImpl<$Res, $Val extends Params>
   @override
   $Res call({
     Object? title = null,
+    Object? pictures = null,
   }) {
     return _then(_value.copyWith(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      pictures: null == pictures
+          ? _value.pictures
+          : pictures // ignore: cast_nullable_to_non_nullable
+              as List<PictureItem>,
     ) as $Val);
   }
 }
@@ -61,7 +67,7 @@ abstract class _$$ParamsImplCopyWith<$Res> implements $ParamsCopyWith<$Res> {
       __$$ParamsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String title});
+  $Res call({String title, List<PictureItem> pictures});
 }
 
 /// @nodoc
@@ -76,12 +82,17 @@ class __$$ParamsImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? title = null,
+    Object? pictures = null,
   }) {
     return _then(_$ParamsImpl(
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      pictures: null == pictures
+          ? _value._pictures
+          : pictures // ignore: cast_nullable_to_non_nullable
+              as List<PictureItem>,
     ));
   }
 }
@@ -89,14 +100,23 @@ class __$$ParamsImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ParamsImpl with DiagnosticableTreeMixin implements _Params {
-  const _$ParamsImpl({required this.title});
+  const _$ParamsImpl(
+      {required this.title, required final List<PictureItem> pictures})
+      : _pictures = pictures;
 
   @override
   final String title;
+  final List<PictureItem> _pictures;
+  @override
+  List<PictureItem> get pictures {
+    if (_pictures is EqualUnmodifiableListView) return _pictures;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_pictures);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Params(title: $title)';
+    return 'Params(title: $title, pictures: $pictures)';
   }
 
   @override
@@ -104,7 +124,8 @@ class _$ParamsImpl with DiagnosticableTreeMixin implements _Params {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'Params'))
-      ..add(DiagnosticsProperty('title', title));
+      ..add(DiagnosticsProperty('title', title))
+      ..add(DiagnosticsProperty('pictures', pictures));
   }
 
   @override
@@ -112,11 +133,13 @@ class _$ParamsImpl with DiagnosticableTreeMixin implements _Params {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ParamsImpl &&
-            (identical(other.title, title) || other.title == title));
+            (identical(other.title, title) || other.title == title) &&
+            const DeepCollectionEquality().equals(other._pictures, _pictures));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title);
+  int get hashCode => Object.hash(
+      runtimeType, title, const DeepCollectionEquality().hash(_pictures));
 
   @JsonKey(ignore: true)
   @override
@@ -126,10 +149,14 @@ class _$ParamsImpl with DiagnosticableTreeMixin implements _Params {
 }
 
 abstract class _Params implements Params {
-  const factory _Params({required final String title}) = _$ParamsImpl;
+  const factory _Params(
+      {required final String title,
+      required final List<PictureItem> pictures}) = _$ParamsImpl;
 
   @override
   String get title;
+  @override
+  List<PictureItem> get pictures;
   @override
   @JsonKey(ignore: true)
   _$$ParamsImplCopyWith<_$ParamsImpl> get copyWith =>

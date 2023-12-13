@@ -20,6 +20,8 @@ import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of
     as _i13;
 import 'package:nasapic/features/picture_of_the_day/data/repositories/demo_picture_of_the_day_repository.dart'
     as _i7;
+import 'package:nasapic/features/picture_of_the_day/data/repositories/picture_of_the_day_repository_impl.dart'
+    as _i14;
 import 'package:nasapic/features/picture_of_the_day/domain/repositories/i_picture_of_the_day_repository.dart'
     as _i6;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/get_all_pictures.dart'
@@ -28,7 +30,7 @@ import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_pict
     as _i8;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_picture_by_title.dart'
     as _i9;
-import 'package:nasapic/injection.dart' as _i14;
+import 'package:nasapic/injection.dart' as _i15;
 
 const String _dev = 'dev';
 const String _demo = 'demo';
@@ -63,8 +65,7 @@ extension GetItInjectableX on _i1.GetIt {
     );
     gh.factory<_i8.SearchPicturesByDate>(
         () => _i8.SearchPicturesByDate(gh<_i6.IPictureOfTheDayRepository>()));
-    gh.factory<_i9.SearchPicturesByTitle>(
-        () => _i9.SearchPicturesByTitle(gh<_i6.IPictureOfTheDayRepository>()));
+    gh.factory<_i9.SearchPicturesByTitle>(() => _i9.SearchPicturesByTitle());
     gh.factory<String>(
       () => externalModule.baseUrl,
       instanceName: 'BaseUrl',
@@ -87,8 +88,16 @@ extension GetItInjectableX on _i1.GetIt {
       () => _i13.PictureOfTheDayRemoteDataSourceImpl(gh<_i10.Dio>()),
       registerFor: {_dev},
     );
+    gh.factory<_i6.IPictureOfTheDayRepository>(
+      () => _i14.PictureOfTheDayRepositoryImpl(
+        networkInfo: gh<_i12.INetworkInfo>(),
+        localDataSource: gh<_i5.IPictureOfTheDayLocalDataSource>(),
+        remoteDataSource: gh<_i13.IPictureOfTheDayRemoteDataSource>(),
+      ),
+      registerFor: {_dev},
+    );
     return this;
   }
 }
 
-class _$ExternalModule extends _i14.ExternalModule {}
+class _$ExternalModule extends _i15.ExternalModule {}

@@ -3,6 +3,7 @@ import 'package:nasapic/core/utils/date_helpers.dart';
 import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_local_data_source.dart';
 import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_remote_data_source.dart';
 import 'package:nasapic/features/picture_of_the_day/data/models/picture_item_model.dart';
+import 'package:nasapic/features/picture_of_the_day/domain/repositories/i_picture_of_the_day_repository.dart';
 import 'package:nasapic/injection.dart';
 
 Future<void> main() async {
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     IPictureOfTheDayLocalDataSource localDataSource = getIt<IPictureOfTheDayLocalDataSource>();
     IPictureOfTheDayRemoteDataSource remoteDataSource = getIt<IPictureOfTheDayRemoteDataSource>();
+    IPictureOfTheDayRepository repository = getIt<IPictureOfTheDayRepository>();
 
     final List<PictureItemModel> picturesList = [
       PictureItemModel(
@@ -62,54 +64,55 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: FutureBuilder(
+          future: repository.getAllPictures(1),
           // future: remoteDataSource.getAllPictures(1, 10),
-          future: Future(() async {
-            final result = await localDataSource.getAllPictures();
-            if (result.isEmpty) {
-              localDataSource.savePictures(picturesList);
-            }
-            return await localDataSource.getAllPictures();
-          }),
+          // future: Future(() async {
+          //   final result = await localDataSource.getAllPictures();
+          //   if (result.isEmpty) {
+          //     localDataSource.savePictures(picturesList);
+          //   }
+          //   return await localDataSource.getAllPictures();
+          // }),
           builder: ((context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
-              final pictures = snapshot.data;
-              if (pictures == null) return Container();
+              // final pictures = snapshot.data;
+              // if (pictures == null) return Container();
 
-              return ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: pictures.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Text(pictures[index].title),
-                      Image.network(
-                        pictures[index].mediaType == 'video' ? pictures[index].thumbnailUrl! : pictures[index].url,
-                      ),
-                    ],
-                  );
-                },
-              );
-
-              // return snapshot.data!.fold(
-              // (f) => const Text('Error'),
-              // (pictures) => ListView.builder(
+              // return ListView.builder(
               //   physics: const BouncingScrollPhysics(),
               //   shrinkWrap: true,
               //   itemCount: pictures.length,
               //   itemBuilder: (BuildContext context, int index) {
+              //     return Column(
+              //       children: [
+              //         Text(pictures[index].title),
+              //         Image.network(
+              //           pictures[index].mediaType == 'video' ? pictures[index].thumbnailUrl! : pictures[index].url,
+              //         ),
+              //       ],
+              //     );
+              //   },
+              // );
+              if (snapshot.data == null) return Container();
 
-              // return Column(
-              //   children: [
-              //     Text(pictures[index].title),
-              //     Image.network(
-              //       pictures[index].imageUrl,
-              //     ),
-              //   ],
-              // );
-              //     },
-              //   ),
-              // );
+              return snapshot.data!.fold(
+                (f) => const Text('Error'),
+                (pictures) => ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: pictures.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                      children: [
+                        Text(pictures[index].title),
+                        Image.network(
+                          pictures[index].imageUrl,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+              );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),

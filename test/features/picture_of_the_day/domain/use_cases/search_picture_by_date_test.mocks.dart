@@ -80,36 +80,6 @@ class MockIPictureOfTheDayRepository extends _i1.Mock
 
   @override
   _i4.Future<
-      _i2
-      .Either<_i5.PictureFailure, List<_i6.PictureItem>>> searchPictureByTitle(
-          String? title) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #searchPictureByTitle,
-          [title],
-        ),
-        returnValue: _i4.Future<
-                _i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>.value(
-            _FakeEither_0<_i5.PictureFailure, List<_i6.PictureItem>>(
-          this,
-          Invocation.method(
-            #searchPictureByTitle,
-            [title],
-          ),
-        )),
-        returnValueForMissingStub: _i4.Future<
-                _i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>.value(
-            _FakeEither_0<_i5.PictureFailure, List<_i6.PictureItem>>(
-          this,
-          Invocation.method(
-            #searchPictureByTitle,
-            [title],
-          ),
-        )),
-      ) as _i4.Future<_i2.Either<_i5.PictureFailure, List<_i6.PictureItem>>>);
-
-  @override
-  _i4.Future<
       _i2.Either<_i5.PictureFailure, _i6.PictureItem>> searchPictureByDate(
           DateTime? date) =>
       (super.noSuchMethod(

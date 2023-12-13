@@ -1,7 +1,26 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
+part 'picture_failure.freezed.dart';
+
 sealed class PictureFailure {}
 
-class CacheFailure extends PictureFailure {}
+@freezed
+class CacheFailure extends PictureFailure with _$CacheFailure {
+  const factory CacheFailure({
+    required String message,
+  }) = _CacheFailure;
+}
 
-class ServerUnavaiableFailure extends PictureFailure {}
+@freezed
+class ServerFailure extends PictureFailure with _$ServerFailure {
+  const factory ServerFailure({
+    required int? code,
+    required String message,
+  }) = _ServerFailure;
+}
 
-class NoValuesFoundedFailure extends PictureFailure {}
+class NoValuesFoundeOnCachedFailure extends PictureFailure {}
+
+class NoValuesFoundeOnMemoryFailure extends PictureFailure {}
+
+class UnknownFailure extends PictureFailure {}

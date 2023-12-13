@@ -80,7 +80,7 @@ void main() {
       when(mockedBox.values).thenReturn(mockedResultMap);
       // act
       final result = await localDataSource.getAllPictures();
-      // ssert
+      // assert
       expect(result, mockedResult);
       verify(mockDatabase.getBox(HiveBoxType.pictureItemBox));
       verify(mockedBox.values);
@@ -93,7 +93,7 @@ void main() {
       try {
         await localDataSource.getAllPictures();
       } catch (e) {
-        //assert
+        // assert
         expect(e, mockedException);
       }
       verify(mockDatabase.getBox(HiveBoxType.pictureItemBox));
@@ -141,7 +141,7 @@ void main() {
       try {
         await localDataSource.savePictures(mockedResult);
       } catch (e) {
-        //assert
+        // assert
         expect(e, mockedException);
       }
       verify(mockDatabase.getBox(HiveBoxType.pictureItemBox));
@@ -187,25 +187,26 @@ void main() {
       // arrange
       final testDate = DateTime.now();
       when(mockDatabase.getBox(HiveBoxType.pictureItemBox)).thenThrow(mockedHiveError);
+      // act
       try {
         await localDataSource.searchPictureByDate(testDate);
       } catch (e) {
-        //assert
+        // assert
         expect(e, mockedException);
       }
       verify(mockDatabase.getBox(HiveBoxType.pictureItemBox));
     });
 
     test('should throw a NoValuesFoundedOnCache exception when Hive returns null', () async {
-      // Arrange
+      // arrange
       final testDate = DateTime.now();
       when(mockDatabase.getBox(HiveBoxType.pictureItemBox)).thenAnswer((_) async => mockedBox);
       when(mockedBox.get(testDate.toStringRemote())).thenReturn(null);
-
+      // act
       try {
         await localDataSource.searchPictureByDate(testDate);
       } catch (e) {
-        //assert
+        // assert
         expect(e, isA<NoValuesFoundedOnCacheException>());
       }
       verify(mockDatabase.getBox(HiveBoxType.pictureItemBox));
@@ -226,10 +227,11 @@ void main() {
     test('should throw a DatabaseException when Hive throws an error', () async {
       // arrange
       when(mockDatabase.cleanAllBoxes()).thenThrow(mockedHiveError);
+      // act
       try {
         await localDataSource.cleanCache();
       } catch (e) {
-        //assert
+        // assert
         expect(e, mockedException);
       }
       verify(mockDatabase.cleanAllBoxes());

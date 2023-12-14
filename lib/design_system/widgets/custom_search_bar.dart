@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nasapic/core/utils/date_helpers.dart';
+import 'package:nasapic/design_system/resources/strings.dart';
 
 enum FilterType { string, date }
 
@@ -53,9 +54,22 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 controller: _editingController,
                 readOnly: _filterType == FilterType.date,
                 decoration: InputDecoration(
-                  hintText: _filterType == FilterType.string ? "Search by text..." : "Select a date",
+                  hintText: _filterType == FilterType.string ? Strings.searchByTextHint : Strings.searchByDateHint,
+                  filled: true,
+                  fillColor: Colors.white,
+                  enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.transparent),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black),
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                  ),
+                  hintStyle: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.black),
                 ),
                 onChanged: _onSearch,
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(color: Colors.black),
+                cursorColor: Colors.black,
               ),
             ),
           ),
@@ -66,6 +80,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             absorbing: _filterType == FilterType.date,
             child: IconButton(
               icon: const Icon(Icons.calendar_today),
+              color: Colors.black,
               onPressed: () async {
                 setState(() {
                   _editingController.text = '';
@@ -81,6 +96,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             absorbing: _filterType == FilterType.string,
             child: IconButton(
               icon: const Icon(Icons.text_fields),
+              color: Colors.black,
               onPressed: () async {
                 setState(
                   () {

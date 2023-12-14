@@ -46,6 +46,7 @@ class PictureOfTheDayBloc extends Bloc<PictureOfTheDayEvent, PictureOfTheDayStat
           );
         },
         searchPicturesByTitle: (event) async {
+          if (state.isLoading) return;
           emit(state.copyWith(isLoading: true, pictureFailure: null));
           final failureOrSuccess = await _searchPicturesByTitle(search_by_title.Params(title: event.title, pictures: state.pictures.toList()));
           emit(
@@ -67,6 +68,7 @@ class PictureOfTheDayBloc extends Bloc<PictureOfTheDayEvent, PictureOfTheDayStat
           );
         },
         searchPicturesByDate: (event) async {
+          if (state.isLoading) return;
           emit(state.copyWith(isLoading: true, pictureFailure: null));
           final failureOrSuccess = await _searchPicturesByDate(search_by_date.Params(date: event.date));
           emit(

@@ -65,9 +65,10 @@ class HomePage extends StatelessWidget {
 class _CustomSearchBarImpl extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final bloc = context.watch<PictureOfTheDayBloc>();
     return CustomSearchBar(
+      isReadOnly: bloc.state.isLoading,
       onSearch: (title, date) {
-        final bloc = context.read<PictureOfTheDayBloc>();
         if (title != null && title.isEmpty) {
           bloc.add(const PictureOfTheDayEvent.cleanFilters());
         } else if (title != null) {

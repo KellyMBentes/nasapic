@@ -6,4 +6,5 @@ abstract class IPictureOfTheDayRepository {
   int get countByPage;
   Future<Either<PictureFailure, List<PictureItem>>> getAllPictures(int page);
   Future<Either<PictureFailure, PictureItem>> searchPictureByDate(DateTime date);
+  Future<Either<PictureFailure, void>> cleanCache();
 }

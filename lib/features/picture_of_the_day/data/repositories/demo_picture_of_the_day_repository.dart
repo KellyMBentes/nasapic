@@ -55,4 +55,9 @@ class DemoPictureOfTheDayRepository implements IPictureOfTheDayRepository {
       return Left(NoValuesFoundeOnCachedFailure());
     }
   }
+
+  @override
+  Future<Either<PictureFailure, void>> cleanCache() {
+    throw UnimplementedError();
+  }
 }

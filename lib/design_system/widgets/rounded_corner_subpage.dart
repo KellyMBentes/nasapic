@@ -32,12 +32,10 @@ class RoundedCornerSubpage extends StatelessWidget {
             topRight: Radius.circular(26),
           ),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: mainAxisAlignment,
-            crossAxisAlignment: crossAxisAlignment,
-            children: children,
-          ),
+        child: Column(
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          children: children,
         ),
       );
     });

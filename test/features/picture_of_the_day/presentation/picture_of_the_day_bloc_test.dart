@@ -84,4 +84,106 @@ void main() {
       },
     );
   });
+
+  group('searchPicturesByTitle event', () {
+    const int pageTest = 1;
+    final PictureItem pictureTest = PictureItem(date: DateTime(2023, 12, 08), explanation: '', title: 'Test title', imageUrl: '');
+    const String titleTest = 'test';
+    final PictureFailure pictureFailureTest = NoValuesFoundeOnMemoryFailure();
+
+    blocTest<PictureOfTheDayBloc, PictureOfTheDayState>(
+      'emits [loading, loaded] when searchPicturesByTitle is added and successfully loads pictures.',
+      setUp: () {
+        when(mockGetAllPictures(const get_all.Params(page: pageTest))).thenAnswer((_) async => Right([pictureTest]));
+        when(mockSearchPicturesByTitle(search_by_title.Params(title: titleTest, pictures: [pictureTest])))
+            .thenAnswer((_) async => Right([pictureTest]));
+      },
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(const PictureOfTheDayEvent.getAllPictures(pageTest));
+        bloc.add(const PictureOfTheDayEvent.searchPicturesByTitle(titleTest));
+      },
+      expect: () => [
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: 0),
+        PictureOfTheDayState(pictures: {pictureTest}, filtredPictures: [], filter: null, isLoading: false, pictureFailure: null, page: pageTest),
+        PictureOfTheDayState(pictures: {pictureTest}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: pageTest),
+        PictureOfTheDayState(
+            pictures: {pictureTest}, filtredPictures: [pictureTest], filter: titleTest, isLoading: false, pictureFailure: null, page: 1),
+      ],
+      verify: (bloc) {
+        verify(mockSearchPicturesByTitle(search_by_title.Params(title: titleTest, pictures: [pictureTest]))).called(1);
+      },
+    );
+    blocTest<PictureOfTheDayBloc, PictureOfTheDayState>(
+      'emits [loading, failure] when searchPicturesByTitle is added and received error from use case.',
+      setUp: () {
+        when(mockSearchPicturesByTitle(const search_by_title.Params(title: titleTest, pictures: [])))
+            .thenAnswer((_) async => Left(pictureFailureTest));
+      },
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(const PictureOfTheDayEvent.searchPicturesByTitle(titleTest));
+      },
+      expect: () => [
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: 0),
+        PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: titleTest, isLoading: false, pictureFailure: pictureFailureTest, page: 0),
+      ],
+      verify: (bloc) {
+        verify(mockSearchPicturesByTitle(const search_by_title.Params(title: titleTest, pictures: []))).called(1);
+      },
+    );
+  });
+
+  group('searchPicturesByDate event', () {
+    final PictureItem pictureTest = PictureItem(date: DateTime(2023, 12, 08), explanation: '', title: 'Test title', imageUrl: '');
+    final DateTime dateTest = DateTime.now();
+    const PictureFailure pictureFailureTest = ServerFailure(code: 500, message: 'Internal Server Error');
+    blocTest<PictureOfTheDayBloc, PictureOfTheDayState>(
+      'emits [loading, loaded] when searchPicturesByDate is added and successfully loads pictures.',
+      setUp: () {
+        when(mockSearchPicturesByDate(search_by_date.Params(date: dateTest))).thenAnswer((_) async => Right(pictureTest));
+      },
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(PictureOfTheDayEvent.searchPicturesByDate(dateTest));
+      },
+      expect: () => [
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: 0),
+        PictureOfTheDayState(pictures: {}, filtredPictures: [pictureTest], filter: dateTest, isLoading: false, pictureFailure: null, page: 0),
+      ],
+      verify: (bloc) {
+        verify(mockSearchPicturesByDate(search_by_date.Params(date: dateTest))).called(1);
+      },
+    );
+    blocTest<PictureOfTheDayBloc, PictureOfTheDayState>(
+      'emits [loading, failure] when searchPicturesByDate is added and received error from use case.',
+      setUp: () {
+        when(mockSearchPicturesByDate(search_by_date.Params(date: dateTest))).thenAnswer((_) async => const Left(pictureFailureTest));
+      },
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(PictureOfTheDayEvent.searchPicturesByDate(dateTest));
+      },
+      expect: () => [
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: 0),
+        PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: dateTest, isLoading: false, pictureFailure: pictureFailureTest, page: 0),
+      ],
+      verify: (bloc) {
+        verify(mockSearchPicturesByDate(search_by_date.Params(date: dateTest))).called(1);
+      },
+    );
+  });
+
+  group('cleanFilters event', () {
+    blocTest<PictureOfTheDayBloc, PictureOfTheDayState>(
+      'emits [loaded] cleaning all filters after add cleanFilters event.',
+      build: () => bloc,
+      act: (bloc) {
+        bloc.add(const PictureOfTheDayEvent.cleanFilters());
+      },
+      expect: () => [
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: false, pictureFailure: null, page: 0),
+      ],
+    );
+  });
 }

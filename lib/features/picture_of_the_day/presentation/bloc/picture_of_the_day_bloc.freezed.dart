@@ -19,24 +19,27 @@ mixin _$PictureOfTheDayEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) getAllPictures,
-    required TResult Function(String name) searchPicturesByName,
+    required TResult Function(String title) searchPicturesByTitle,
     required TResult Function(DateTime date) searchPicturesByDate,
+    required TResult Function() cleanFilters,
     required TResult Function() refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? getAllPictures,
-    TResult? Function(String name)? searchPicturesByName,
+    TResult? Function(String title)? searchPicturesByTitle,
     TResult? Function(DateTime date)? searchPicturesByDate,
+    TResult? Function()? cleanFilters,
     TResult? Function()? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? getAllPictures,
-    TResult Function(String name)? searchPicturesByName,
+    TResult Function(String title)? searchPicturesByTitle,
     TResult Function(DateTime date)? searchPicturesByDate,
+    TResult Function()? cleanFilters,
     TResult Function()? refresh,
     required TResult orElse(),
   }) =>
@@ -44,24 +47,28 @@ mixin _$PictureOfTheDayEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllPictures value) getAllPictures,
-    required TResult Function(_SearchPicturesByName value) searchPicturesByName,
+    required TResult Function(_SearchPicturesByName value)
+        searchPicturesByTitle,
     required TResult Function(_SearchPicturesByDate value) searchPicturesByDate,
+    required TResult Function(_CleanFilters value) cleanFilters,
     required TResult Function(_Refresh value) refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllPictures value)? getAllPictures,
-    TResult? Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult? Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult? Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult? Function(_CleanFilters value)? cleanFilters,
     TResult? Function(_Refresh value)? refresh,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllPictures value)? getAllPictures,
-    TResult Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult Function(_CleanFilters value)? cleanFilters,
     TResult Function(_Refresh value)? refresh,
     required TResult orElse(),
   }) =>
@@ -153,8 +160,9 @@ class _$GetAllPicturesImpl implements _GetAllPictures {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) getAllPictures,
-    required TResult Function(String name) searchPicturesByName,
+    required TResult Function(String title) searchPicturesByTitle,
     required TResult Function(DateTime date) searchPicturesByDate,
+    required TResult Function() cleanFilters,
     required TResult Function() refresh,
   }) {
     return getAllPictures(page);
@@ -164,8 +172,9 @@ class _$GetAllPicturesImpl implements _GetAllPictures {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? getAllPictures,
-    TResult? Function(String name)? searchPicturesByName,
+    TResult? Function(String title)? searchPicturesByTitle,
     TResult? Function(DateTime date)? searchPicturesByDate,
+    TResult? Function()? cleanFilters,
     TResult? Function()? refresh,
   }) {
     return getAllPictures?.call(page);
@@ -175,8 +184,9 @@ class _$GetAllPicturesImpl implements _GetAllPictures {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? getAllPictures,
-    TResult Function(String name)? searchPicturesByName,
+    TResult Function(String title)? searchPicturesByTitle,
     TResult Function(DateTime date)? searchPicturesByDate,
+    TResult Function()? cleanFilters,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -190,8 +200,10 @@ class _$GetAllPicturesImpl implements _GetAllPictures {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllPictures value) getAllPictures,
-    required TResult Function(_SearchPicturesByName value) searchPicturesByName,
+    required TResult Function(_SearchPicturesByName value)
+        searchPicturesByTitle,
     required TResult Function(_SearchPicturesByDate value) searchPicturesByDate,
+    required TResult Function(_CleanFilters value) cleanFilters,
     required TResult Function(_Refresh value) refresh,
   }) {
     return getAllPictures(this);
@@ -201,8 +213,9 @@ class _$GetAllPicturesImpl implements _GetAllPictures {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllPictures value)? getAllPictures,
-    TResult? Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult? Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult? Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult? Function(_CleanFilters value)? cleanFilters,
     TResult? Function(_Refresh value)? refresh,
   }) {
     return getAllPictures?.call(this);
@@ -212,8 +225,9 @@ class _$GetAllPicturesImpl implements _GetAllPictures {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllPictures value)? getAllPictures,
-    TResult Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult Function(_CleanFilters value)? cleanFilters,
     TResult Function(_Refresh value)? refresh,
     required TResult orElse(),
   }) {
@@ -239,7 +253,7 @@ abstract class _$$SearchPicturesByNameImplCopyWith<$Res> {
           $Res Function(_$SearchPicturesByNameImpl) then) =
       __$$SearchPicturesByNameImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String name});
+  $Res call({String title});
 }
 
 /// @nodoc
@@ -253,12 +267,12 @@ class __$$SearchPicturesByNameImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
+    Object? title = null,
   }) {
     return _then(_$SearchPicturesByNameImpl(
-      null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -267,14 +281,14 @@ class __$$SearchPicturesByNameImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SearchPicturesByNameImpl implements _SearchPicturesByName {
-  const _$SearchPicturesByNameImpl(this.name);
+  const _$SearchPicturesByNameImpl(this.title);
 
   @override
-  final String name;
+  final String title;
 
   @override
   String toString() {
-    return 'PictureOfTheDayEvent.searchPicturesByName(name: $name)';
+    return 'PictureOfTheDayEvent.searchPicturesByTitle(title: $title)';
   }
 
   @override
@@ -282,11 +296,11 @@ class _$SearchPicturesByNameImpl implements _SearchPicturesByName {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SearchPicturesByNameImpl &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.title, title) || other.title == title));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, name);
+  int get hashCode => Object.hash(runtimeType, title);
 
   @JsonKey(ignore: true)
   @override
@@ -300,35 +314,38 @@ class _$SearchPicturesByNameImpl implements _SearchPicturesByName {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) getAllPictures,
-    required TResult Function(String name) searchPicturesByName,
+    required TResult Function(String title) searchPicturesByTitle,
     required TResult Function(DateTime date) searchPicturesByDate,
+    required TResult Function() cleanFilters,
     required TResult Function() refresh,
   }) {
-    return searchPicturesByName(name);
+    return searchPicturesByTitle(title);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? getAllPictures,
-    TResult? Function(String name)? searchPicturesByName,
+    TResult? Function(String title)? searchPicturesByTitle,
     TResult? Function(DateTime date)? searchPicturesByDate,
+    TResult? Function()? cleanFilters,
     TResult? Function()? refresh,
   }) {
-    return searchPicturesByName?.call(name);
+    return searchPicturesByTitle?.call(title);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? getAllPictures,
-    TResult Function(String name)? searchPicturesByName,
+    TResult Function(String title)? searchPicturesByTitle,
     TResult Function(DateTime date)? searchPicturesByDate,
+    TResult Function()? cleanFilters,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
-    if (searchPicturesByName != null) {
-      return searchPicturesByName(name);
+    if (searchPicturesByTitle != null) {
+      return searchPicturesByTitle(title);
     }
     return orElse();
   }
@@ -337,45 +354,49 @@ class _$SearchPicturesByNameImpl implements _SearchPicturesByName {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllPictures value) getAllPictures,
-    required TResult Function(_SearchPicturesByName value) searchPicturesByName,
+    required TResult Function(_SearchPicturesByName value)
+        searchPicturesByTitle,
     required TResult Function(_SearchPicturesByDate value) searchPicturesByDate,
+    required TResult Function(_CleanFilters value) cleanFilters,
     required TResult Function(_Refresh value) refresh,
   }) {
-    return searchPicturesByName(this);
+    return searchPicturesByTitle(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllPictures value)? getAllPictures,
-    TResult? Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult? Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult? Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult? Function(_CleanFilters value)? cleanFilters,
     TResult? Function(_Refresh value)? refresh,
   }) {
-    return searchPicturesByName?.call(this);
+    return searchPicturesByTitle?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllPictures value)? getAllPictures,
-    TResult Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult Function(_CleanFilters value)? cleanFilters,
     TResult Function(_Refresh value)? refresh,
     required TResult orElse(),
   }) {
-    if (searchPicturesByName != null) {
-      return searchPicturesByName(this);
+    if (searchPicturesByTitle != null) {
+      return searchPicturesByTitle(this);
     }
     return orElse();
   }
 }
 
 abstract class _SearchPicturesByName implements PictureOfTheDayEvent {
-  const factory _SearchPicturesByName(final String name) =
+  const factory _SearchPicturesByName(final String title) =
       _$SearchPicturesByNameImpl;
 
-  String get name;
+  String get title;
   @JsonKey(ignore: true)
   _$$SearchPicturesByNameImplCopyWith<_$SearchPicturesByNameImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -448,8 +469,9 @@ class _$SearchPicturesByDateImpl implements _SearchPicturesByDate {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) getAllPictures,
-    required TResult Function(String name) searchPicturesByName,
+    required TResult Function(String title) searchPicturesByTitle,
     required TResult Function(DateTime date) searchPicturesByDate,
+    required TResult Function() cleanFilters,
     required TResult Function() refresh,
   }) {
     return searchPicturesByDate(date);
@@ -459,8 +481,9 @@ class _$SearchPicturesByDateImpl implements _SearchPicturesByDate {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? getAllPictures,
-    TResult? Function(String name)? searchPicturesByName,
+    TResult? Function(String title)? searchPicturesByTitle,
     TResult? Function(DateTime date)? searchPicturesByDate,
+    TResult? Function()? cleanFilters,
     TResult? Function()? refresh,
   }) {
     return searchPicturesByDate?.call(date);
@@ -470,8 +493,9 @@ class _$SearchPicturesByDateImpl implements _SearchPicturesByDate {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? getAllPictures,
-    TResult Function(String name)? searchPicturesByName,
+    TResult Function(String title)? searchPicturesByTitle,
     TResult Function(DateTime date)? searchPicturesByDate,
+    TResult Function()? cleanFilters,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -485,8 +509,10 @@ class _$SearchPicturesByDateImpl implements _SearchPicturesByDate {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllPictures value) getAllPictures,
-    required TResult Function(_SearchPicturesByName value) searchPicturesByName,
+    required TResult Function(_SearchPicturesByName value)
+        searchPicturesByTitle,
     required TResult Function(_SearchPicturesByDate value) searchPicturesByDate,
+    required TResult Function(_CleanFilters value) cleanFilters,
     required TResult Function(_Refresh value) refresh,
   }) {
     return searchPicturesByDate(this);
@@ -496,8 +522,9 @@ class _$SearchPicturesByDateImpl implements _SearchPicturesByDate {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllPictures value)? getAllPictures,
-    TResult? Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult? Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult? Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult? Function(_CleanFilters value)? cleanFilters,
     TResult? Function(_Refresh value)? refresh,
   }) {
     return searchPicturesByDate?.call(this);
@@ -507,8 +534,9 @@ class _$SearchPicturesByDateImpl implements _SearchPicturesByDate {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllPictures value)? getAllPictures,
-    TResult Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult Function(_CleanFilters value)? cleanFilters,
     TResult Function(_Refresh value)? refresh,
     required TResult orElse(),
   }) {
@@ -527,6 +555,127 @@ abstract class _SearchPicturesByDate implements PictureOfTheDayEvent {
   @JsonKey(ignore: true)
   _$$SearchPicturesByDateImplCopyWith<_$SearchPicturesByDateImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$CleanFiltersImplCopyWith<$Res> {
+  factory _$$CleanFiltersImplCopyWith(
+          _$CleanFiltersImpl value, $Res Function(_$CleanFiltersImpl) then) =
+      __$$CleanFiltersImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$CleanFiltersImplCopyWithImpl<$Res>
+    extends _$PictureOfTheDayEventCopyWithImpl<$Res, _$CleanFiltersImpl>
+    implements _$$CleanFiltersImplCopyWith<$Res> {
+  __$$CleanFiltersImplCopyWithImpl(
+      _$CleanFiltersImpl _value, $Res Function(_$CleanFiltersImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$CleanFiltersImpl implements _CleanFilters {
+  const _$CleanFiltersImpl();
+
+  @override
+  String toString() {
+    return 'PictureOfTheDayEvent.cleanFilters()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$CleanFiltersImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(int page) getAllPictures,
+    required TResult Function(String title) searchPicturesByTitle,
+    required TResult Function(DateTime date) searchPicturesByDate,
+    required TResult Function() cleanFilters,
+    required TResult Function() refresh,
+  }) {
+    return cleanFilters();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(int page)? getAllPictures,
+    TResult? Function(String title)? searchPicturesByTitle,
+    TResult? Function(DateTime date)? searchPicturesByDate,
+    TResult? Function()? cleanFilters,
+    TResult? Function()? refresh,
+  }) {
+    return cleanFilters?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(int page)? getAllPictures,
+    TResult Function(String title)? searchPicturesByTitle,
+    TResult Function(DateTime date)? searchPicturesByDate,
+    TResult Function()? cleanFilters,
+    TResult Function()? refresh,
+    required TResult orElse(),
+  }) {
+    if (cleanFilters != null) {
+      return cleanFilters();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllPictures value) getAllPictures,
+    required TResult Function(_SearchPicturesByName value)
+        searchPicturesByTitle,
+    required TResult Function(_SearchPicturesByDate value) searchPicturesByDate,
+    required TResult Function(_CleanFilters value) cleanFilters,
+    required TResult Function(_Refresh value) refresh,
+  }) {
+    return cleanFilters(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetAllPictures value)? getAllPictures,
+    TResult? Function(_SearchPicturesByName value)? searchPicturesByTitle,
+    TResult? Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult? Function(_CleanFilters value)? cleanFilters,
+    TResult? Function(_Refresh value)? refresh,
+  }) {
+    return cleanFilters?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllPictures value)? getAllPictures,
+    TResult Function(_SearchPicturesByName value)? searchPicturesByTitle,
+    TResult Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult Function(_CleanFilters value)? cleanFilters,
+    TResult Function(_Refresh value)? refresh,
+    required TResult orElse(),
+  }) {
+    if (cleanFilters != null) {
+      return cleanFilters(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _CleanFilters implements PictureOfTheDayEvent {
+  const factory _CleanFilters() = _$CleanFiltersImpl;
 }
 
 /// @nodoc
@@ -568,8 +717,9 @@ class _$RefreshImpl implements _Refresh {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(int page) getAllPictures,
-    required TResult Function(String name) searchPicturesByName,
+    required TResult Function(String title) searchPicturesByTitle,
     required TResult Function(DateTime date) searchPicturesByDate,
+    required TResult Function() cleanFilters,
     required TResult Function() refresh,
   }) {
     return refresh();
@@ -579,8 +729,9 @@ class _$RefreshImpl implements _Refresh {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(int page)? getAllPictures,
-    TResult? Function(String name)? searchPicturesByName,
+    TResult? Function(String title)? searchPicturesByTitle,
     TResult? Function(DateTime date)? searchPicturesByDate,
+    TResult? Function()? cleanFilters,
     TResult? Function()? refresh,
   }) {
     return refresh?.call();
@@ -590,8 +741,9 @@ class _$RefreshImpl implements _Refresh {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(int page)? getAllPictures,
-    TResult Function(String name)? searchPicturesByName,
+    TResult Function(String title)? searchPicturesByTitle,
     TResult Function(DateTime date)? searchPicturesByDate,
+    TResult Function()? cleanFilters,
     TResult Function()? refresh,
     required TResult orElse(),
   }) {
@@ -605,8 +757,10 @@ class _$RefreshImpl implements _Refresh {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllPictures value) getAllPictures,
-    required TResult Function(_SearchPicturesByName value) searchPicturesByName,
+    required TResult Function(_SearchPicturesByName value)
+        searchPicturesByTitle,
     required TResult Function(_SearchPicturesByDate value) searchPicturesByDate,
+    required TResult Function(_CleanFilters value) cleanFilters,
     required TResult Function(_Refresh value) refresh,
   }) {
     return refresh(this);
@@ -616,8 +770,9 @@ class _$RefreshImpl implements _Refresh {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_GetAllPictures value)? getAllPictures,
-    TResult? Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult? Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult? Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult? Function(_CleanFilters value)? cleanFilters,
     TResult? Function(_Refresh value)? refresh,
   }) {
     return refresh?.call(this);
@@ -627,8 +782,9 @@ class _$RefreshImpl implements _Refresh {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllPictures value)? getAllPictures,
-    TResult Function(_SearchPicturesByName value)? searchPicturesByName,
+    TResult Function(_SearchPicturesByName value)? searchPicturesByTitle,
     TResult Function(_SearchPicturesByDate value)? searchPicturesByDate,
+    TResult Function(_CleanFilters value)? cleanFilters,
     TResult Function(_Refresh value)? refresh,
     required TResult orElse(),
   }) {

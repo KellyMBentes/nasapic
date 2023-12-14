@@ -46,7 +46,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 ? null
                 : () async {
                     _onDateSelected(await showDatePicker(
-                        context: context, initialDate: DateTime.now(), firstDate: DateTime(2020, 1, 1), lastDate: DateTime.now()));
+                        context: context, initialDate: DateTime.now(), firstDate: DateTime(1995, 6, 16), lastDate: DateTime.now()));
                   },
             child: AbsorbPointer(
               absorbing: _filterType == FilterType.date,

@@ -19,6 +19,7 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
       builder: (context) {
         return AppBar(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          elevation: 0.0,
           centerTitle: true,
           title: Text(
             title,

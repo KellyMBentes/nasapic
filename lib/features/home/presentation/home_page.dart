@@ -35,21 +35,27 @@ class HomePage extends StatelessWidget {
       return Scaffold(
         extendBodyBehindAppBar: false,
         appBar: _getAppBar(constraints.maxWidth),
-        body: Column(
-          children: [
-            if (constraints.maxWidth <= mobileBreakpoint)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
-                child: _CustomSearchBarImpl(),
+        body: RefreshIndicator(
+          onRefresh: () async {
+            final bloc = context.read<PictureOfTheDayBloc>();
+            bloc.add(const PictureOfTheDayEvent.refresh());
+          },
+          child: Column(
+            children: [
+              if (constraints.maxWidth <= mobileBreakpoint)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0, left: 20.0, right: 20.0),
+                  child: _CustomSearchBarImpl(),
+                ),
+              const Expanded(
+                child: RoundedCornerSubpage(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [Expanded(child: PicturesSection())],
+                ),
               ),
-            const Expanded(
-              child: RoundedCornerSubpage(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [Expanded(child: PicturesSection())],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
     });

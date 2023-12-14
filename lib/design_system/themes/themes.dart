@@ -5,7 +5,7 @@ class Themes {
   static ThemeData lightTheme() {
     return ThemeData(
       primaryColor: Colors.black,
-      scaffoldBackgroundColor: CustomColors.chocolateCosmos,
+      scaffoldBackgroundColor: CustomColors.khaki,
       buttonTheme: const ButtonThemeData(
         buttonColor: CustomColors.khaki,
       ),

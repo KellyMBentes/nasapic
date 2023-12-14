@@ -9,30 +9,32 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:connectivity_plus/connectivity_plus.dart' as _i3;
-import 'package:dio/dio.dart' as _i10;
+import 'package:dio/dio.dart' as _i11;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:nasapic/core/data/hive_database.dart' as _i4;
-import 'package:nasapic/core/network/network_info.dart' as _i12;
+import 'package:nasapic/core/network/network_info.dart' as _i13;
 import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_local_data_source.dart'
     as _i5;
 import 'package:nasapic/features/picture_of_the_day/data/data_sources/picture_of_the_day_remote_data_source.dart'
-    as _i13;
+    as _i14;
 import 'package:nasapic/features/picture_of_the_day/data/repositories/demo_picture_of_the_day_repository.dart'
     as _i7;
 import 'package:nasapic/features/picture_of_the_day/data/repositories/picture_of_the_day_repository_impl.dart'
-    as _i14;
+    as _i15;
 import 'package:nasapic/features/picture_of_the_day/domain/repositories/i_picture_of_the_day_repository.dart'
     as _i6;
+import 'package:nasapic/features/picture_of_the_day/domain/use_cases/clean_cache.dart'
+    as _i10;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/get_all_pictures.dart'
-    as _i11;
+    as _i12;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_picture_by_date.dart'
     as _i8;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_picture_by_title.dart'
     as _i9;
 import 'package:nasapic/features/picture_of_the_day/presentation/bloc/picture_of_the_day_bloc.dart'
-    as _i15;
-import 'package:nasapic/injection.dart' as _i16;
+    as _i16;
+import 'package:nasapic/injection.dart' as _i17;
 
 const String _dev = 'dev';
 const String _demo = 'demo';
@@ -76,35 +78,38 @@ extension GetItInjectableX on _i1.GetIt {
       () => externalModule.apiKey,
       instanceName: 'ApiKey',
     );
-    gh.lazySingleton<_i10.Dio>(() => externalModule.dio(
+    gh.factory<_i10.CleanCache>(
+        () => _i10.CleanCache(gh<_i6.IPictureOfTheDayRepository>()));
+    gh.lazySingleton<_i11.Dio>(() => externalModule.dio(
           gh<String>(instanceName: 'BaseUrl'),
           gh<String>(instanceName: 'ApiKey'),
         ));
-    gh.factory<_i11.GetAllPictures>(
-        () => _i11.GetAllPictures(gh<_i6.IPictureOfTheDayRepository>()));
-    gh.factory<_i12.INetworkInfo>(() => _i12.NetworkInfoImpl(
+    gh.factory<_i12.GetAllPictures>(
+        () => _i12.GetAllPictures(gh<_i6.IPictureOfTheDayRepository>()));
+    gh.factory<_i13.INetworkInfo>(() => _i13.NetworkInfoImpl(
           connectivity: gh<_i3.Connectivity>(),
-          dio: gh<_i10.Dio>(),
+          dio: gh<_i11.Dio>(),
         ));
-    gh.factory<_i13.IPictureOfTheDayRemoteDataSource>(
-      () => _i13.PictureOfTheDayRemoteDataSourceImpl(gh<_i10.Dio>()),
+    gh.factory<_i14.IPictureOfTheDayRemoteDataSource>(
+      () => _i14.PictureOfTheDayRemoteDataSourceImpl(gh<_i11.Dio>()),
       registerFor: {_dev},
     );
     gh.factory<_i6.IPictureOfTheDayRepository>(
-      () => _i14.PictureOfTheDayRepositoryImpl(
-        networkInfo: gh<_i12.INetworkInfo>(),
+      () => _i15.PictureOfTheDayRepositoryImpl(
+        networkInfo: gh<_i13.INetworkInfo>(),
         localDataSource: gh<_i5.IPictureOfTheDayLocalDataSource>(),
-        remoteDataSource: gh<_i13.IPictureOfTheDayRemoteDataSource>(),
+        remoteDataSource: gh<_i14.IPictureOfTheDayRemoteDataSource>(),
       ),
       registerFor: {_dev},
     );
-    gh.factory<_i15.PictureOfTheDayBloc>(() => _i15.PictureOfTheDayBloc(
-          gh<_i11.GetAllPictures>(),
+    gh.factory<_i16.PictureOfTheDayBloc>(() => _i16.PictureOfTheDayBloc(
+          gh<_i12.GetAllPictures>(),
           gh<_i8.SearchPicturesByDate>(),
           gh<_i9.SearchPicturesByTitle>(),
+          gh<_i10.CleanCache>(),
         ));
     return this;
   }
 }
 
-class _$ExternalModule extends _i16.ExternalModule {}
+class _$ExternalModule extends _i17.ExternalModule {}

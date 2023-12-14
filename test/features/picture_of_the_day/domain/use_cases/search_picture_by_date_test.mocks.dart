@@ -106,4 +106,30 @@ class MockIPictureOfTheDayRepository extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.Either<_i5.PictureFailure, _i6.PictureItem>>);
+
+  @override
+  _i4.Future<_i2.Either<_i5.PictureFailure, void>> cleanCache() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cleanCache,
+          [],
+        ),
+        returnValue: _i4.Future<_i2.Either<_i5.PictureFailure, void>>.value(
+            _FakeEither_0<_i5.PictureFailure, void>(
+          this,
+          Invocation.method(
+            #cleanCache,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i2.Either<_i5.PictureFailure, void>>.value(
+                _FakeEither_0<_i5.PictureFailure, void>(
+          this,
+          Invocation.method(
+            #cleanCache,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Either<_i5.PictureFailure, void>>);
 }

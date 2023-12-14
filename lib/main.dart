@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nasapic/design_system/resources/strings.dart';
+import 'package:nasapic/design_system/themes/themes.dart';
 import 'package:nasapic/features/home/presentation/home_page.dart';
 import 'package:nasapic/features/picture_of_the_day/presentation/bloc/picture_of_the_day_bloc.dart';
 import 'package:nasapic/injection.dart';
@@ -25,11 +27,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      title: Strings.appName,
+      theme: Themes.lightTheme(),
       home: const HomePage(),
     );
   }

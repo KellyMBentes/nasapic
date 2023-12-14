@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dartz/dartz.dart';
 import 'package:mockito/annotations.dart';
 import 'package:nasapic/core/error/cache_exception.dart';
@@ -280,5 +282,45 @@ void main() {
       verifyNever(mockRemoteDataSource.searchPictureByDate(dateTest));
       verify(mockLocalDataSource.searchPictureByDate(dateTest));
     });
+  });
+
+  group('cleanCache Method', () {
+    test('cleanCache successfully returns', () async {
+      // arrange
+      when(mockLocalDataSource.cleanCache()).thenAnswer((_) async => Void);
+      // act
+      final result = await repository.cleanCache();
+      // assert
+      expect(result.isRight(), true);
+      verify(mockLocalDataSource.cleanCache());
+    });
+    test('cleanCache should return CacheFailure when local datasource throws CacheException', () async {
+      const mockedException = DatabaseException(message: 'Error');
+      // arrange
+      when(mockLocalDataSource.cleanCache()).thenThrow(mockedException);
+      // act
+      final result = await repository.cleanCache();
+      // assert
+      expect(result.isRight(), false);
+      expect(
+        (result as Left<PictureFailure, void>).value,
+        const CacheFailure(message: 'Error'),
+      );
+      verify(mockLocalDataSource.cleanCache());
+    });
+  });
+  test('cleanCache should return UnknownFailure when local datasource throws Exception', () async {
+    final mockedException = Exception();
+    // arrange
+    when(mockLocalDataSource.cleanCache()).thenThrow(mockedException);
+    // act
+    final result = await repository.cleanCache();
+    // assert
+    expect(result.isRight(), false);
+    expect(
+      (result as Left<PictureFailure, void>).value,
+      const TypeMatcher<UnknownFailure>(),
+    );
+    verify(mockLocalDataSource.cleanCache());
   });
 }

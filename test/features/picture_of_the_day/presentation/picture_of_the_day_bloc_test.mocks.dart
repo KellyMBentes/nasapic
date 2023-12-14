@@ -7,10 +7,13 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:nasapic/core/usecases/usecase.dart' as _i11;
 import 'package:nasapic/features/picture_of_the_day/domain/entities/picture_item.dart'
     as _i7;
 import 'package:nasapic/features/picture_of_the_day/domain/repositories/i_picture_of_the_day_repository.dart'
     as _i2;
+import 'package:nasapic/features/picture_of_the_day/domain/use_cases/clean_cache.dart'
+    as _i10;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/get_all_pictures.dart'
     as _i4;
 import 'package:nasapic/features/picture_of_the_day/domain/use_cases/search_picture_by_date.dart'
@@ -179,4 +182,49 @@ class MockSearchPicturesByTitle extends _i1.Mock
           ),
         )),
       ) as _i5.Future<_i3.Either<_i6.PictureFailure, List<_i7.PictureItem>>>);
+}
+
+/// A class which mocks [CleanCache].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCleanCache extends _i1.Mock implements _i10.CleanCache {
+  @override
+  _i2.IPictureOfTheDayRepository get repository => (super.noSuchMethod(
+        Invocation.getter(#repository),
+        returnValue: _FakeIPictureOfTheDayRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+        returnValueForMissingStub: _FakeIPictureOfTheDayRepository_0(
+          this,
+          Invocation.getter(#repository),
+        ),
+      ) as _i2.IPictureOfTheDayRepository);
+
+  @override
+  _i5.Future<_i3.Either<_i6.PictureFailure, void>> call(
+          _i11.NoParams? noParams) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [noParams],
+        ),
+        returnValue: _i5.Future<_i3.Either<_i6.PictureFailure, void>>.value(
+            _FakeEither_1<_i6.PictureFailure, void>(
+          this,
+          Invocation.method(
+            #call,
+            [noParams],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i3.Either<_i6.PictureFailure, void>>.value(
+                _FakeEither_1<_i6.PictureFailure, void>(
+          this,
+          Invocation.method(
+            #call,
+            [noParams],
+          ),
+        )),
+      ) as _i5.Future<_i3.Either<_i6.PictureFailure, void>>);
 }

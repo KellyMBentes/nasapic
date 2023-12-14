@@ -69,4 +69,15 @@ class PictureOfTheDayRepositoryImpl extends IPictureOfTheDayRepository {
       return Left(UnknownFailure());
     }
   }
+
+  @override
+  Future<Either<PictureFailure, void>> cleanCache() async {
+    try {
+      return Right(await localDataSource.cleanCache());
+    } on DatabaseException catch (e) {
+      return Left(CacheFailure(message: e.message));
+    } on Exception {
+      return Left(UnknownFailure());
+    }
+  }
 }

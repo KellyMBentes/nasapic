@@ -19,9 +19,10 @@ class PictureOfTheDayBloc extends Bloc<PictureOfTheDayEvent, PictureOfTheDayStat
 
   PictureOfTheDayBloc(this._getAllPictures, this._searchPicturesByDate, this._searchPicturesByTitle) : super(PictureOfTheDayState.initial()) {
     on<PictureOfTheDayEvent>((event, emit) async {
-      emit(state.copyWith(isLoading: true, pictureFailure: null));
       await event.map(
           getAllPictures: (event) async {
+            if (state.page >= event.page) return;
+            emit(state.copyWith(isLoading: true, pictureFailure: null));
             final failureOrSuccess = await _getAllPictures(get_all.Params(page: event.page));
             emit(
               failureOrSuccess.fold(
@@ -30,13 +31,11 @@ class PictureOfTheDayBloc extends Bloc<PictureOfTheDayEvent, PictureOfTheDayStat
                   pictureFailure: failure,
                 ),
                 (success) {
-                  List<PictureItem> picturesSorted = [...state.pictures, ...success];
-                  picturesSorted.sort(((a, b) => b.date.compareTo(a.date)));
-
+                  success.sort(((a, b) => b.date.compareTo(a.date)));
                   return state.copyWith(
                     isLoading: false,
-                    page: state.page + 1,
-                    pictures: picturesSorted.toSet(),
+                    page: event.page,
+                    pictures: <PictureItem>{...state.pictures, ...success},
                   );
                 },
               ),

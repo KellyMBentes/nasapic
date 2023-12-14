@@ -16,7 +16,7 @@ class _PicturesListViewState extends State<PicturesListView> {
   Widget build(BuildContext context) {
     return BlocConsumer<PictureOfTheDayBloc, PictureOfTheDayState>(
       listener: (context, state) {
-        _canLoadNextPage = state.isLoading;
+        _canLoadNextPage = !state.isLoading;
       },
       builder: (context, state) {
         if (state.isLoading && state.pictures.isEmpty) {

@@ -60,11 +60,16 @@ class PictureOfTheDayLocalDataSourceImpl extends IPictureOfTheDayLocalDataSource
   Future<PictureItemModel> searchPictureByDate(DateTime date) async {
     try {
       final Box pictureItemBox = await _database.getBox(HiveBoxType.pictureItemBox);
-      final Map<String, dynamic>? pictureItemValue = pictureItemBox.get(date.toStringRemote());
+      final Map<dynamic, dynamic>? pictureItemValue = pictureItemBox.get(date.toStringRemote());
 
       if (pictureItemValue == null) throw NoValuesFoundedOnCacheException();
 
-      return PictureItemModel.fromJson(pictureItemValue);
+      Map<String, dynamic> result = {};
+      for (var entry in pictureItemValue.entries) {
+        result.addAll({entry.key.toString(): entry.value});
+      }
+
+      return PictureItemModel.fromJson(result);
     } on HiveError catch (e) {
       throw DatabaseException(message: e.message);
     }

@@ -4,6 +4,7 @@ import 'package:nasapic/design_system/widgets/picture_item_grid.dart';
 import 'package:nasapic/design_system/widgets/picture_item_shimmer.dart';
 import 'package:nasapic/design_system/widgets/picture_item_widget.dart';
 import 'package:nasapic/features/picture_of_the_day/presentation/bloc/picture_of_the_day_bloc.dart';
+import 'package:nasapic/features/picture_of_the_day/presentation/pages/picture_item_page.dart';
 
 class PicturesSection extends StatefulWidget {
   const PicturesSection({super.key});
@@ -51,7 +52,9 @@ class _PicturesSectionState extends State<PicturesSection> {
                         ),
                         title: pictures.elementAt(i).title,
                         date: pictures.elementAt(i).date,
-                        onClick: () {},
+                        onClick: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PictureItemPage(pictureItem: pictures.elementAt(i))));
+                        },
                       ),
                     ),
                 ],

@@ -18,57 +18,62 @@ class PictureItemWidget extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(12.0),
-            child: Column(children: [
-              SizedBox(
-                height: constraints.maxHeight * 0.80,
-                child: image,
-              ),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.all(constraints.maxHeight * 0.02),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: AutoSizeText.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(text: '$title \n'),
-                              TextSpan(
-                                text: date.toStringRemote(),
-                                style: const TextStyle(
-                                  color: CustomColors.khaki,
+    return InkWell(
+      onTap: () {
+        onClick();
+      },
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12.0),
+              child: Column(children: [
+                SizedBox(
+                  height: constraints.maxHeight * 0.80,
+                  child: image,
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(constraints.maxHeight * 0.02),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: AutoSizeText.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(text: '$title \n'),
+                                TextSpan(
+                                  text: date.toStringRemote(),
+                                  style: const TextStyle(
+                                    color: CustomColors.khaki,
+                                  ),
+                                )
+                              ],
+                            ),
+                            textAlign: TextAlign.start,
+                            style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                                  color: CustomColors.eggPlantTextColor,
+                                  fontSize: 15,
                                 ),
-                              )
-                            ],
+                            maxLines: 4,
+                            minFontSize: 0,
+                            maxFontSize: 25.0,
                           ),
-                          textAlign: TextAlign.start,
-                          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                                color: CustomColors.eggPlantTextColor,
-                                fontSize: 15,
-                              ),
-                          maxLines: 4,
-                          minFontSize: 0,
-                          maxFontSize: 25.0,
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ]),
-          ),
-        );
-      },
+              ]),
+            ),
+          );
+        },
+      ),
     );
   }
 }

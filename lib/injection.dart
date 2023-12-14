@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:nasapic/core/data/hive_database.dart';
@@ -23,11 +24,12 @@ abstract class ExternalModule {
   @Named("BaseUrl")
   String get baseUrl => 'https://api.nasa.gov/planetary/apod';
 
-  @Named("ApiKey")
-  String get apiKey => 'DEMO_KEY';
-
   @lazySingleton
-  Dio dio(@Named('BaseUrl') String url, @Named('ApiKey') String apiKey) {
+  @preResolve
+  Future<Dio> dio(@Named('BaseUrl') String url) async {
+    await dotenv.load(fileName: ".env");
+    String apiKey = dotenv.env['API_KEY'] ?? '';
+
     Dio dio = Dio(
       BaseOptions(
         baseUrl: url,

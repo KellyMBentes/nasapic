@@ -35,7 +35,7 @@ class PictureOfTheDayRemoteDataSourceImpl extends IPictureOfTheDayRemoteDataSour
         throw ServerException(code: response.statusCode, message: RemoteResponseError.fromJson(response.data as Map<String, dynamic>).message);
       }
     } on DioException catch (e) {
-      throw ServerException(code: e.response!.statusCode!, message: RemoteResponseError.fromJson(e.response?.data as Map<String, dynamic>).message);
+      throw ServerException(code: e.response?.statusCode, message: RemoteResponseError.fromJson(e.response?.data as Map<String, dynamic>).message);
     }
   }
 
@@ -54,7 +54,7 @@ class PictureOfTheDayRemoteDataSourceImpl extends IPictureOfTheDayRemoteDataSour
         throw ServerException(code: response.statusCode!, message: RemoteResponseError.fromJson(response.data as Map<String, dynamic>).message);
       }
     } on DioException catch (e) {
-      throw ServerException(code: e.response!.statusCode!, message: RemoteResponseError.fromJson(e.response?.data as Map<String, dynamic>).message);
+      throw ServerException(code: e.response?.statusCode, message: RemoteResponseError.fromJson(e.response?.data as Map<String, dynamic>).message);
     }
   }
 }

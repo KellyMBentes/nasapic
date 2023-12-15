@@ -35,11 +35,12 @@ class PictureOfTheDayBloc extends Bloc<PictureOfTheDayEvent, PictureOfTheDayStat
                 pictureFailure: failure,
               ),
               (success) {
-                success.sort(((a, b) => b.date.compareTo(a.date)));
+                List<PictureItem> sortedList = success.toList();
+                sortedList.sort(((a, b) => b.date.compareTo(a.date)));
                 return state.copyWith(
                   isLoading: false,
                   page: event.page,
-                  pictures: <PictureItem>{...state.pictures, ...success},
+                  pictures: <PictureItem>{...state.pictures, ...sortedList},
                 );
               },
             ),
@@ -68,7 +69,6 @@ class PictureOfTheDayBloc extends Bloc<PictureOfTheDayEvent, PictureOfTheDayStat
           );
         },
         searchPicturesByDate: (event) async {
-          if (state.isLoading) return;
           emit(state.copyWith(isLoading: true, pictureFailure: null));
           final failureOrSuccess = await _searchPicturesByDate(search_by_date.Params(date: event.date));
           emit(

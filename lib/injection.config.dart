@@ -74,16 +74,12 @@ extension GetItInjectableX on _i1.GetIt {
       () => externalModule.baseUrl,
       instanceName: 'BaseUrl',
     );
-    gh.factory<String>(
-      () => externalModule.apiKey,
-      instanceName: 'ApiKey',
-    );
     gh.factory<_i10.CleanCache>(
         () => _i10.CleanCache(gh<_i6.IPictureOfTheDayRepository>()));
-    gh.lazySingleton<_i11.Dio>(() => externalModule.dio(
-          gh<String>(instanceName: 'BaseUrl'),
-          gh<String>(instanceName: 'ApiKey'),
-        ));
+    await gh.lazySingletonAsync<_i11.Dio>(
+      () => externalModule.dio(gh<String>(instanceName: 'BaseUrl')),
+      preResolve: true,
+    );
     gh.factory<_i12.GetAllPictures>(
         () => _i12.GetAllPictures(gh<_i6.IPictureOfTheDayRepository>()));
     gh.factory<_i13.INetworkInfo>(() => _i13.NetworkInfoImpl(

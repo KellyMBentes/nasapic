@@ -126,16 +126,21 @@ void main() {
     blocTest<PictureOfTheDayBloc, PictureOfTheDayState>(
       'emits [loading, failure] when searchPicturesByTitle is added and received error from use case.',
       setUp: () {
+        when(mockGetAllPictures(const get_all.Params(page: pageTest))).thenAnswer((_) async => const Right([]));
         when(mockSearchPicturesByTitle(const search_by_title.Params(title: titleTest, pictures: [])))
             .thenAnswer((_) async => Left(pictureFailureTest));
       },
       build: () => bloc,
       act: (bloc) {
+        bloc.add(const PictureOfTheDayEvent.getAllPictures(pageTest));
         bloc.add(const PictureOfTheDayEvent.searchPicturesByTitle(titleTest));
       },
       expect: () => [
         const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: 0),
-        PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: titleTest, isLoading: false, pictureFailure: pictureFailureTest, page: 0),
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: false, pictureFailure: null, page: pageTest),
+        const PictureOfTheDayState(pictures: {}, filtredPictures: [], filter: null, isLoading: true, pictureFailure: null, page: pageTest),
+        PictureOfTheDayState(
+            pictures: {}, filtredPictures: [], filter: titleTest, isLoading: false, pictureFailure: pictureFailureTest, page: pageTest),
       ],
       verify: (bloc) {
         verify(mockSearchPicturesByTitle(const search_by_title.Params(title: titleTest, pictures: []))).called(1);
